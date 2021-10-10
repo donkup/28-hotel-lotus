@@ -1,20 +1,114 @@
+// import { Room } from "./Room";
+
 class Hotel {
     public readonly name: string;
     public readonly adress: string;
     public readonly stars: number;
-    public rooms : {}[];
+    public rooms: {}[];
 
-    public constructor(name: string, 
-                    adress: string,
-                    stars: number){
+    public constructor(name: string,
+                 adress: string,
+                 stars: number){
 
         this.name = name;
         this.adress = adress;
         this.stars = stars;
         this.rooms = [];
-
     }
 
-    
+    //spausdinam Hotel info i konsole:
+    public printData(onlyComfort?: boolean): void {
+        if(!onlyComfort){
+            console.log(' ');
+        } else {
+            console.log(`Name: ${this.name}`);
+            console.log(`Adress: ${this.adress}`);
+            console.log(`${this.stars} stars`);
+        }
+    }
+
+    // pridedam kambary i masyva:
+    addRoom(room: Room): void {
+        this.rooms.push(room);
+    }
+
+    //spausdinam kambarius
+    public printRooms(minComfort?: number): void {
+        this.printData(false)
+        console.log(this.rooms);
+        
+    }
 
 }
+
+class Room {
+    size: number;
+    capacity: number;
+
+    public constructor(size: number, capacity: number){
+      this.size = size;
+      this.capacity = capacity;
+    }
+
+    //paskaiciuojam komforto santykį, kiek patalpoje vienam žmogui tenka erdvės.
+   get comfort(): number {
+        return this.size/this.capacity;
+    }
+
+    //spausdinam Room info:
+    public printData(onlyComfort?: boolean): void {
+        console.log(`Kambario dydis: ${this.size} m2.`);
+        console.log(`Asmenu kiekis: ${this.capacity} zmones.`);
+        console.log(`Komforto lygis: ${this.comfort}.`);
+        
+    }
+}
+
+class Spa extends Room {
+    poolSize: number;
+    poolTemperature: number;
+    
+    constructor(poolSize: number,
+                poolTemperature: number){
+        super(40, 2)
+        this.poolSize = poolSize;
+        this.poolTemperature = poolTemperature;
+    }
+     
+    //paskaiciuojam komforto santykį, kiek patalpoje vienam žmogui tenka erdvės.
+    get comfort(): number {
+        return (this.size - this.poolSize)/this.capacity;
+    }
+
+    //spausdinam Spa info:
+    public printData(onlyComfort?: boolean): void {
+       super.printData();
+       console.log(`Baseino dydis: ${this.poolSize} m2.`);
+       console.log(`Vandens temperatura: ${this.poolTemperature} C.`);
+       
+    }
+}
+
+//sukuriam viesbuti
+const lotustravel = new Hotel('Lotus Travel', 'Paradise ave.777', 5);
+
+//spausdinam viesbucio info
+lotustravel.printData(true);
+
+//pridedam kambarius
+lotustravel.addRoom(new Room(30,2));
+lotustravel.addRoom(new Room(50,3));
+lotustravel.addRoom(new Room(20,1));
+lotustravel.addRoom(new Room(100,5));
+console.log('************');
+
+console.log('Viesbutyje esantys kambariai:')
+lotustravel.printRooms()
+
+const dvivietis = new Room(45,2)
+console.log('Dvivietis:', dvivietis);
+dvivietis.printData()
+
+const spaRoom = new Spa(15,26)
+console.log('SPA Room:', spaRoom);
+spaRoom.printData()
