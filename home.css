@@ -44,6 +44,7 @@ button {
   display: flex;
   align-items: center;
   background-size: cover;
+  opacity: 70%;
 }
 
 .inner {
