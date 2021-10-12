@@ -171,6 +171,7 @@ UI.button.addEventListener('click', () => {
         transylvania.addRoom(new Spa(size, capacity, poolSize, poolTemperature));
     }
     transylvania.printData()
+    
 
     //Render Room Card
     
