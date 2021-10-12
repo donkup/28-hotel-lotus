@@ -85,6 +85,10 @@ p {
   width: 40%;
   margin-left: 7%;
 }
+.logo {
+  position: relative;
+  size: 10px;
+}
 .form-group span {
   font-size: 15px;
   color: white;
